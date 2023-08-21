@@ -15,7 +15,10 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.urls import include, path
+from rest_framework import routers
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
+
+router = routers.DefaultRouter()
 
 # Wire up our API using automatic URL routing.
 # Additionally, login URLs included for the browsable API.
@@ -30,4 +33,5 @@ urlpatterns = [
         ),
         name="swagger-ui",
     ),
+    path("", include(router.urls)),
 ]
