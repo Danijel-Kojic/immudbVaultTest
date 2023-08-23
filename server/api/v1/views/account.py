@@ -29,15 +29,15 @@ class BankAccountListView(APIView):
             create_account_collection()
         created_result = create_account(request.data)
         if isinstance(created_result, int):
-            # if 400 == created_result:
-            #     return Response(status=status.HTTP_400_BAD_REQUEST)
-            # if 409 == created_result:
-            #     return Response(status=status.HTTP_409_CONFLICT)
-            # if 502 == created_result:
-            #     return Response(status=status.HTTP_502_BAD_GATEWAY)
-            # if 500 == created_result:
-            #     return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-            return Response(status=created_result)
+            if 400 == created_result:
+                return Response(status=status.HTTP_400_BAD_REQUEST, data={"code": created_result, "message": "Wrong parameter"})
+            if 409 == created_result:
+                return Response(status=status.HTTP_409_CONFLICT, data={"code": created_result, "message": "Account already exists"})
+            if 502 == created_result:
+                return Response(status=status.HTTP_502_BAD_GATEWAY, data={"code": created_result, "message": "Backend server is not responding"})
+            if 500 == created_result:
+                return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR, data={"code": created_result, "message": "Internal server error"})
+            # return Response(status=created_result, data={"code": created_result})
         elif isinstance(created_result, str):
             account = BankAccount(account_id=created_result, email=request.data['email'], name=request.data['name'])
             account_serial = BankAccountSerializer(account)
@@ -53,7 +53,7 @@ class BankAccountListView(APIView):
             serializer = BankAccountSerializer(accounts, many=True)
             return Response(serializer.data)
         else:
-            return Response(status=status.HTTP_404_NOT_FOUND)
+            return Response(status=status.HTTP_404_NOT_FOUND, data={"code": status.HTTP_404_NOT_FOUND, "message": "Accounts not found"})
 
     def delete(self, request):
         """
@@ -65,8 +65,8 @@ class BankAccountListView(APIView):
         if 'code' in result:
             if 200 == result['code']:
                 return Response(status=status.HTTP_204_NO_CONTENT)
-            return Response(status=result['code'])
-        return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return Response(status=result['code'], data={"code": result['code'], "message": "Fail to delete account collection"})
+        return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR, data={"code": status.HTTP_500_INTERNAL_SERVER_ERROR, "message": "Internal server error"})
 
 
 class BankAccountDetailView(APIView):
@@ -81,7 +81,7 @@ class BankAccountDetailView(APIView):
         # checking for the parameters from the URL
         account = get_account_by_id(pk)
         if None == account:
-            return Response(status=status.HTTP_404_NOT_FOUND)
+            return Response(status=status.HTTP_404_NOT_FOUND, data={"code": status.HTTP_404_NOT_FOUND, "message": "Account not found"})
         serializer = BankAccountSerializer(account)
         return Response(serializer.data)
 
@@ -96,13 +96,13 @@ class BankAccountDetailView(APIView):
         Update name of bank account
         """
         if not 'name' in request.data:
-            return Response(status=status.HTTP_400_BAD_REQUEST) 
+            return Response(status=status.HTTP_400_BAD_REQUEST, data={"code": status.HTTP_400_BAD_REQUEST, "message": "Wrong parameter"}) 
         name = request.data['name']
         if len(name) == 0:
-            return Response(status=status.HTTP_400_BAD_REQUEST) 
+            return Response(status=status.HTTP_400_BAD_REQUEST, data={"code": status.HTTP_400_BAD_REQUEST, "message": "Wrong parameter"}) 
         account = update_account_by_id(pk, name)
         if None == account:
-            return Response(status=status.HTTP_404_NOT_FOUND)
+            return Response(status=status.HTTP_404_NOT_FOUND, data={"code": status.HTTP_404_NOT_FOUND, "message": "Account not found"})
         serializer = BankAccountSerializer(account)
         return Response(serializer.data)
         
@@ -114,4 +114,4 @@ class BankAccountDetailView(APIView):
         if True == del_result:
             return Response(status=status.HTTP_204_NO_CONTENT)
         else:
-            return Response(status=status.HTTP_404_NOT_FOUND)
+            return Response(status=status.HTTP_404_NOT_FOUND, data={"code": status.HTTP_404_NOT_FOUND, "message": "Account not found"})
