@@ -200,5 +200,39 @@ def update_account_by_id(account_id: str, name: str) -> BankAccount | None:
         print(e)
         return None
 
+def update_balance_by_id(account_id: str, balance: float) -> BankAccount | None:
+    account = get_account_by_id(account_id=account_id)
+    if None == account:
+        return None
+    try:
+        req_body = {
+            "document": {
+                "email": account.email,
+                "name": account.name,
+                "balance": balance,
+            },
+            "query": {
+                "expressions": [{
+                    "fieldComparisons": [{
+                        "field": "_id",
+                        "operator": "EQ",
+                        "value": account_id
+                    }]
+                }]
+            }
+        }
+        response = session.post(IMMUDB_COLLECTION_URL_PREFIX + IMMUDB_VAULT_COLLECTION_NAME_ACCOUNTS + "/document",
+                                headers = headers,
+                                data=json.dumps(req_body))
+        if 200 == response.status_code:
+            resp_obj = json.loads(response.text)
+            if 'documentId' in resp_obj and resp_obj['documentId'] == account_id:
+                # Update success
+                account.balance = balance
+        return account
+    except Exception as e:
+        print(e)
+        return None
+
 def delete_account_by_id(account_id: str) -> bool:
     return False

@@ -31,5 +31,6 @@ urlpatterns = [
     path("token/", TokenObtainPairView.as_view(), name="token_obtain_pair"),
     path("token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
     re_path(r"^accounts/$", views.BankAccountListView.as_view()),
-    re_path(r'^accounts/(?P<pk>[0-9a-f]+)$', views.BankAccountDetailView.as_view())
+    re_path(r'^accounts/(?P<pk>[0-9a-f]+)$', views.BankAccountDetailView.as_view()),
+    path("transaction/", include("api.v1.urls.transaction"))
 ]
