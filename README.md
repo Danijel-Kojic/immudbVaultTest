@@ -15,6 +15,7 @@ I intended to use 2 different collections for account and transaction, but unfor
 ## Backend server for REST API
 
 ### Starting the backend server
+In the `server/api/config` directory, we can create a `.env` file copying `.env.example` and set the proper read-writable `IMMUDB_VAULT_API_KEY`.
 ```bash
 cd server
 pipenv install
@@ -34,3 +35,5 @@ cd client
 npm install
 npm start
 ```
+
+ ![Immubank Dashboard](/img/client.png)
