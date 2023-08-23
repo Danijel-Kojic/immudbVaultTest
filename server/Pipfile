@@ -9,6 +9,9 @@ djangorestframework = "*"
 drf-spectacular = "*"
 djangorestframework-simplejwt = "*"
 django-filter = "*"
+requests = "*"
+python-dotenv = "*"
+drf-yasg = "*"
 
 [dev-packages]
 

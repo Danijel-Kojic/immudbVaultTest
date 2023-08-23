@@ -7,6 +7,8 @@ This project is built using DRF (Django Restful Framework) for backend API serve
 ## Starting the backend server
 ```bash
 cd server
+pipenv install
+pipenv shell
 python manage.py runserver
 ```
 It will start a backend API server on [localhost:8080](http://127.0.0.1:8000).
