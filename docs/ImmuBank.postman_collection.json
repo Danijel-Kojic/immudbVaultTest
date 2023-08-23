@@ -1,0 +1,388 @@
+{
+	"info": {
+		"_postman_id": "dcb34d56-feca-4829-8942-1606b58bf832",
+		"name": "ImmuBank",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "accounts",
+			"item": [
+				{
+					"name": "AddAccount",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "Denis Petrovic",
+									"type": "default"
+								},
+								{
+									"key": "email",
+									"value": "dendengine@gmail.com",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{user-api-url}}/accounts/",
+							"host": [
+								"{{user-api-url}}"
+							],
+							"path": [
+								"accounts",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateAccount",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "Danijel K.",
+									"type": "default"
+								},
+								{
+									"key": "email",
+									"value": "danijel.kojic.91124@gmail.com",
+									"type": "default",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "{{user-api-url}}/accounts/{{account-id}}",
+							"host": [
+								"{{user-api-url}}"
+							],
+							"path": [
+								"accounts",
+								"{{account-id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetAccounts",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{user-api-url}}/accounts/",
+							"host": [
+								"{{user-api-url}}"
+							],
+							"path": [
+								"accounts",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetAccount",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{user-api-url}}/accounts/{{account-id}}",
+							"host": [
+								"{{user-api-url}}"
+							],
+							"path": [
+								"accounts",
+								"{{account-id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteAccount",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{user-api-url}}/accounts/{{account-id}}",
+							"host": [
+								"{{user-api-url}}"
+							],
+							"path": [
+								"accounts",
+								"{{account-id}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "transaction",
+			"item": [
+				{
+					"name": "Withdraw",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "account_id",
+									"value": "{{account-id}}",
+									"type": "default"
+								},
+								{
+									"key": "amount",
+									"value": "1",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{user-api-url}}/transaction/withdraw",
+							"host": [
+								"{{user-api-url}}"
+							],
+							"path": [
+								"transaction",
+								"withdraw"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Deposit",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "account_id",
+									"value": "{{account-id}}",
+									"type": "default"
+								},
+								{
+									"key": "amount",
+									"value": "1",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{user-api-url}}/transaction/deposit",
+							"host": [
+								"{{user-api-url}}"
+							],
+							"path": [
+								"transaction",
+								"deposit"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Transfer",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "account_id_from",
+									"value": "{{account-id}}",
+									"type": "default"
+								},
+								{
+									"key": "account_id_to",
+									"value": "64e585340000000000000025721d9e15",
+									"type": "default"
+								},
+								{
+									"key": "amount",
+									"value": "1",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{user-api-url}}/transaction/transfer",
+							"host": [
+								"{{user-api-url}}"
+							],
+							"path": [
+								"transaction",
+								"transfer"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "token",
+			"item": [
+				{
+					"name": "GenerateToken",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "username",
+									"value": "admin",
+									"type": "default"
+								},
+								{
+									"key": "password",
+									"value": "123456",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{user-api-url}}/token/",
+							"host": [
+								"{{user-api-url}}"
+							],
+							"path": [
+								"token",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "RefreshToken",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "refresh",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTY5MzI2NzcwNywiaWF0IjoxNjkyNjYyOTA3LCJqdGkiOiI4NDQ1YWU1YWFhMDg0NjUwYjY2YmNmN2Q2N2UyYTI4NiIsInVzZXJfaWQiOjF9.sUPz7Y7jzl_GXBz0B5pDl6fccCH0bS4plBBZTN58Pdw",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{user-api-url}}/token/refresh/",
+							"host": [
+								"{{user-api-url}}"
+							],
+							"path": [
+								"token",
+								"refresh",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "GetUsers",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "refresh",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTY5MjY2OTE5OCwiaWF0IjoxNjkyNTgyNzk4LCJqdGkiOiJmNzc2YTE1ZWMwZmY0NjhmYjY3ZGVhNmEwNzVlMWU3MyIsInVzZXJfaWQiOjF9.K_j8jY0AvEithnU9X2vIl-IYJGV6KF1jKbUQF5KYR9Y",
+							"type": "default"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{user-api-url}}/users",
+					"host": [
+						"{{user-api-url}}"
+					],
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{access-token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "user-api-url",
+			"value": "http://127.0.0.1:8000/api/v1",
+			"type": "default"
+		},
+		{
+			"key": "access-token",
+			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjkyNTg0MzM3LCJpYXQiOjE2OTI1ODI3OTgsImp0aSI6ImQ5M2QzYmFmNmQwNTQ4NzRhNzY0Y2M1ZTNlYmU5NDExIiwidXNlcl9pZCI6MX0.7ZXfvxfXGBz1BZmnYT8dqwuA8BYoM6WN-oZCsOaDatM",
+			"type": "default"
+		},
+		{
+			"key": "account-id",
+			"value": "64e5620b000000000000001f721d9e14",
+			"type": "default"
+		}
+	]
+}
