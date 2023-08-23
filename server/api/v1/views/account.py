@@ -5,8 +5,6 @@ from ..models.account import BankAccount, BankAccountModel, delete_all_accounts,
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from django.http import Http404
-import requests
-import json
 from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
 
@@ -15,6 +13,13 @@ class BankAccountListView(APIView):
     """
     API endpoint that allows bank accounts to be viewed or created.
     """
+    @swagger_auto_schema(request_body=openapi.Schema(
+        type=openapi.TYPE_OBJECT, 
+        properties={
+            'email': openapi.Schema(type=openapi.TYPE_STRING, description='The email of a new bank account'),
+            'name': openapi.Schema(type=openapi.TYPE_STRING, description='The name of a new bank account'),
+        }
+    ))
     def post(self, request):
         """
         API endpoint to create a new bank account
@@ -70,6 +75,9 @@ class BankAccountDetailView(APIView):
     """
 
     def get(self, request, pk):
+        """
+        Return a bank account given by account_id
+        """
         # checking for the parameters from the URL
         account = get_account_by_id(pk)
         if None == account:
@@ -77,17 +85,15 @@ class BankAccountDetailView(APIView):
         serializer = BankAccountSerializer(account)
         return Response(serializer.data)
 
-    # @swagger_auto_schema(request_body=openapi.Schema(
-    #     type=openapi.TYPE_OBJECT, 
-    #     properties={
-    #         'name': openapi.Schema(type=openapi.TYPE_STRING, description='The new name of a bank account'),
-    #     }
-    # ))    
+    @swagger_auto_schema(request_body=openapi.Schema(
+        type=openapi.TYPE_OBJECT, 
+        properties={
+            'name': openapi.Schema(type=openapi.TYPE_STRING, description='The new name of a bank account'),
+        }
+    ))
     def patch(self, request, pk):
         """
         Update name of bank account
-
-        :param name str: The new name of a bank account
         """
         if not 'name' in request.data:
             return Response(status=status.HTTP_400_BAD_REQUEST) 
@@ -101,6 +107,9 @@ class BankAccountDetailView(APIView):
         return Response(serializer.data)
         
     def delete(self, request, pk):
+        """
+        Delete a bank account given by account_id
+        """
         del_result = delete_account_by_id(pk)
         if True == del_result:
             return Response(status=status.HTTP_204_NO_CONTENT)
